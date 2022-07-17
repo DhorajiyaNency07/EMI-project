@@ -52,3 +52,20 @@ int main()
     cout<<"\n\n Total Payment : "<<T;
     return 0;
 }
+
+/*
+
+ Enter loan amount : 100000
+
+ Enter rate of interest : 9.5
+
+ Enter time period in Month : 12
+
+
+ Monthly EMI : 8768.32
+
+ Payable Interest : 5219.88
+
+ Total Payment : 105220
+ 
+ */

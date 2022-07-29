@@ -6,10 +6,9 @@
 using namespace std;
 class emi
 {
-    float emi,p,r,n,T,i,a,x,m,z,h;  //p=loan amount, r=interest rate, n=loan period, i=payable interest,T=total payment
+    float emi, loan_amount, interest_rate, loan_period, Total_payment, payable_interest, balance, monthly_interest, z, h;  //p=loan amount, r=interest rate, n=loan period, i=payable interest,T=total payment
     public:
     void getdata();
-    void printdata();
     float calcdata();
     float calcdata1();
     float calcdata2();
@@ -17,47 +16,45 @@ class emi
 };
 void emi::getdata()
 {
-    cout<<"\n Enter loan amount : ";    //p=loan amount
-    cin>>p;                            
-    cout<<"\n Enter rate of interest : ";  //r=interest rate
-    cin>>r;
+    cout<<"\n Enter loan amount : ";    
+    cin>>loan_amount;                            
+    cout<<"\n Enter rate of interest : ";  
+    cin>>interest_rate;
     cout<<"\n Enter time period in month : ";   //n=loan period
-    cin>>n;
-}
-void emi::printdata() 
-{
-    cout<<"\n\n\n           month"<<"           interest"<<"           emi-interest"<<"            balance"; 
-       //h=month, m=interest, z=emi-interest, a=balance
+    cin>>loan_period;
 }
 float emi::calcdata()
 {
-    r=r/(12*100);     //r=interest rate
-    //n=n*12;         // if enter year, need it.
-    emi=(p*r*pow(1+r,n)/(pow(1+r,n)-1));   //  p=loan amount, n=loan period, r=interest rate
+    interest_rate=interest_rate/(12*100);     //r=interest rate
+   // loan_period=loan_period*12;         // if enter year, need it.
+    emi=(loan_amount*interest_rate*pow(1+interest_rate,loan_period)/(pow(1+interest_rate,loan_period)-1));   // n=loan period, r=interest rate
     return emi;
 }
 float emi::calcdata1()
 {
     
-    i=emi*n-p;     // i=payable interest
-    return i;
+    payable_interest = emi * loan_period - loan_amount;     
+    return payable_interest;
 }
 float emi::calcdata2()
 {
-    T=p+i;          // T=total payment
-    return T;
+    Total_payment = loan_amount + payable_interest;        
+    return Total_payment;
 }
 
 float emi::cadata1()    
 {
-    for(int h=1;h<=n;h++)    // h=month
+    cout<<"\n\n\n           month"<<"           interest"<<"           emi-interest"<<"            balance"<<"\n"; 
+       //h=month, m=interest, z=emi-interest, a=balance
+
+    for(int h=1;h<=loan_period;h++)    // h=month
     {
-    m=p*r;    
-    z=emi-m;          //m=interest
-    a=p-(z);      //a=p-(emi-m);
-    cout<<"\n\n           "<<h<<"               "<<m<<"            "<<z<<"                 "<<a;   
-            //h=month, m=interest, z=emi-interest, a=balance
-    p=a;                 //p=a=balance
+    monthly_interest = loan_amount * interest_rate;    
+    z = emi - monthly_interest;          
+    balance = loan_amount - (z);     // balance=loan_amount-(emi-monthly_interest);
+    cout<<"\n\n           "<<h<<"               "<<monthly_interest<<"            "<<z<<"                 "<<balance;   
+            //h=month, z=emi-interest 
+    loan_amount = balance;              
     }                            
 
 }
@@ -65,17 +62,22 @@ float emi::cadata1()
 int main()
 {
     emi a1;
-    float emi,T,i;
+    float emi,Total_payment,payable_interest;
+    
     a1.getdata();
-    emi=a1.calcdata();
+
+    emi = a1.calcdata();
     cout<<"\n\n Monthly EMI : "<<emi;
-    i=a1.calcdata1();
-    cout<<"\n\n Payable Interest : "<<i;
-    T=a1.calcdata2();
-    cout<<"\n\n Total Payment : "<<T;
-    a1.printdata();
+
+    payable_interest = a1.calcdata1();
+    cout<<"\n\n Payable Interest : "<<payable_interest;
+
+    Total_payment = a1.calcdata2();
+    cout<<"\n\n Total Payment : "<<Total_payment;
+
     cout<<"\n";
     a1.cadata1();
+
     return 0;
 }
 
